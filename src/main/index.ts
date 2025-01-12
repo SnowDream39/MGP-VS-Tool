@@ -3,9 +3,8 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import { readDir } from './utils/examples/readDir'
-import { getElectronVersion } from './utils/examples/version'
 import { billboard } from './utils/websites/billboard'
+import * as vocadb from './utils/websites/vocadb'
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -81,10 +80,16 @@ app.whenReady().then(() => {
 
   // 这里设置主进程要监听和处理的事件
   ipcMain.on('ping', () => console.log('pong'))
-  ipcMain.on('readDir', readDir)
-  ipcMain.handle('getElectronVersion', getElectronVersion)
   ipcMain.handle('billboard', async (_event, _requestData) => {
     const data = await billboard()
+    return data
+  })
+  ipcMain.handle('vocadb-search', async (_event, requestData) => {
+    const data = await vocadb.search_songs(requestData.keyword)
+    return data
+  })
+  ipcMain.handle('vocadb-get', async (_event, requestData) => {
+    const data = await vocadb.get_song_info(requestData.id)
     return data
   })
 

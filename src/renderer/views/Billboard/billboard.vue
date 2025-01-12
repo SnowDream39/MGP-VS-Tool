@@ -27,7 +27,7 @@ onMounted(async () => {
   <!-- 遍历渲染 songs_data 数组 -->
   <el-table :data="songs_data" >
     <el-table-column prop="current" label="排名" width="80" />
-    <el-table-column label="封面" width="200">
+    <el-table-column label="封面" width="250">
       <template #default="scope">
         <img :src="scope.row.image" alt="image" />
       </template>

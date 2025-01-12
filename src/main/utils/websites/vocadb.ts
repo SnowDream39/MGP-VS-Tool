@@ -1,7 +1,6 @@
 import axios from 'axios'
 import * as fzstd from 'fzstd'
 
-
 const headers = {
   'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0",
   'Accept': "application/json, text/plain, */*",
@@ -16,7 +15,6 @@ const headers = {
   'accept-language': "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,ja;q=0.5,zh-TW;q=0.4",
   'priority': "u=1, i",
 };
-
 
 /**
  * @param {string} name 歌名或别名
@@ -41,7 +39,7 @@ async function fetch_songs(name, page = 0) {
     const response = await axios.get(url, {
       params: params,
       headers: headers,
-      responseEncoding: 'arraybuffer'
+      responseType: 'arraybuffer'
     });
     const compressedData = new Uint8Array(response.data);  // 从响应中获取压缩数据
     const decompressedData = fzstd.decompress(compressedData);  // 使用 fzstd 解压缩
@@ -55,20 +53,21 @@ async function fetch_songs(name, page = 0) {
 
 async function fetch_song(id) {
   const url = `https://vocadb.net/api/songs/${id}/details`;
-  const response = await axios.request(url, {
+  const response = await axios.get(url, {
     headers: headers,
+    responseType: 'arraybuffer'
   });
-  const jsonData = JSON.parse(response.data);
+  const compressedData = new Uint8Array(response.data);  // 从响应中获取压缩数据
+  const decompressedData = fzstd.decompress(compressedData);  // 使用 fzstd 解压缩
+  const decodedString = new TextDecoder().decode(decompressedData);
+  const jsonData = JSON.parse(decodedString);
   return jsonData;
 }
 
 export async function search_songs(name) {
   try {
     const data = await fetch_songs(name)
-    for (let i in data.items) {
-      const item = data.items[i];
-      console.log(`${i} ${item.defaultName} / ${item.artistString} (${item.id})`);
-    }
+    return data
   } catch (error) {
     console.log("Error:", error)
   }
@@ -81,10 +80,7 @@ export async function search_songs(name) {
 export async function get_song_info(id) {
   try {
     const data = await fetch_song(id)
-    for (let i in data.items) {
-      const item = data.items[i];
-      console.log(`${i} ${item.defaultName} / ${item.artistString} (${item.id})`);
-    }
+    return data
   } catch (error) {
     console.log("Error:", error)
   }

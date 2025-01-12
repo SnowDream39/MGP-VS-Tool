@@ -1,19 +1,18 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Login from '@renderer/views/login/login.vue'
+import Menu from '@renderer/views/menu/menu.vue'
 import Home from '@renderer/views/home/home.vue'
 import Billboard from '@renderer/views/billboard/billboard.vue'
+import Vocadb from '@renderer/views/vocadb/vocadb.vue'
 
 const routes = [
-  // 精确匹配 #/login，指向Login页面
-  { path: '/login', component: Login, exact: true },
-  // 精确匹配 #/home，指向Home页面
+  { path: '/menu', component: Menu, exact: true },
   { path: '/home', component: Home, exact: true },
-  // billboard，匹配不精确也就算了
   { path: '/billboard', component: Billboard },
+  { path: '/vocadb', component: Vocadb },
   // 空hash，则跳转至Login页面
-  { path: '', redirect: '/login' },
+  { path: '', redirect: '/menu' },
   // 未匹配，则跳转至Login页面
-  { path: '/:pathMatch(.*)', redirect: '/login' }
+  { path: '/:pathMatch(.*)', redirect: '/menu' }
 ]
 
 const router = createRouter({
