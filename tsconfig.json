@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }],
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,  // 开启所有严格模式检查
+    "forceConsistentCasingInFileNames": true,  // 强制文件名大小写一致
+    "baseUrl": "./",
+    "paths": {
+      "@renderer/*": ["src/renderer/*"]
+    }
+  }
+}
