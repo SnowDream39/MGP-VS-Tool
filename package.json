@@ -23,6 +23,8 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
     "electron-updater": "^6.3.9",
     "element-plus": "^2.9.3",
     "fzstd": "^0.1.1",

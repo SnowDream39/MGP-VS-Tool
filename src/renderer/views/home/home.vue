@@ -12,28 +12,7 @@ const goto = (path) => {
   router.push(path)
 }
 
-// 读取目录文件列表
-const readDir = () => {
-  // 给主进程发送消息
-  ipcRenderer.send('readDir', { msg: 'test' })
-  // 通过preload接收主进程的回调信息
-  window.api.readDirReply((event, result) => {
-    if (!result.canceled) {
-      console.log(result)
-    } else {
-      console.log('取消选择操作。')
-    }
-  })
-}
 
-// 获取Electron版本号 - 给主进程发送消息并异步等待结果
-const getElectronVersion = () => {
-  ipcRenderer.invoke('getElectronVersion').then((result) => {
-    ElMessageBox.alert(result, 'Electron版本号', {
-      confirmButtonText: 'OK'
-    })
-  })
-}
 </script>
 
 <template>

@@ -11,6 +11,10 @@ const router = useRouter()
 const onLogin = () => {
   router.push('/home')
 }
+
+const billboard = () => {
+  router.push('/billboard')
+}
 </script>
 
 <template>
@@ -25,11 +29,15 @@ const onLogin = () => {
     <div class="ipt-con">
       <el-button type="primary" style="width: 100%" @click="onLogin">登录</el-button>
     </div>
+    <div class="ipt-con">
+      <el-button type="primary" style="width: 100%" @click="billboard">billboard</el-button>
+    </div>
   </div>
 </template>
 
 <style scoped lang="stylus">
 .P-login
+    text-align: center
     position: absolute
     top: 0
     bottom: 0

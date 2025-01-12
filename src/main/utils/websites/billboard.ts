@@ -1,6 +1,17 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
 
+interface Song_data {
+  current: Number;
+  change: String;
+  former: Number;
+  image: String;
+  title: String;
+  link: String;
+  artist: String
+}
+
+
 const config = {
   method: 'GET',
   url: 'https://www.billboard-japan.com/charts/detail?a=niconico',
@@ -10,8 +21,8 @@ const config = {
 };
 
 
-export async function billboard() {
-  const songs_data = []
+async function billboard() {
+  const songs_data: Song_data[] = []
   try {
 
     const response = await axios.request(config); // 使用 await 来处理异步请求
@@ -19,23 +30,23 @@ export async function billboard() {
     const table = $('body').find('tbody')
     const song_datas = table.find('tr')
 
-    song_datas.each((index, element) => {
+    song_datas.each((_index, element) => {
       const data = $(element)
       const rank = data.find('[headers=rank]')
       const name = data.find('[headers=name]')
 
-      const song_data = {
+      const song_data: Song_data = {
         current: Number(rank.children().first().text().trim()),
-        change: rank.children().eq(1).attr('class'),
+        change: rank.children().eq(1).attr('class')!,
         former: Number(rank.children().eq(1).text()),
-        image: `https://www.billboard-japan.com${name.find('img').first().attr('src').trim()}`,
-        song: data.find('.musuc_title').first().text().trim(),
+        image: `https://www.billboard-japan.com${name.find('img').first().attr('src')!.trim()}`,
+        title: data.find('.musuc_title').first().text().trim(),
         link: '',
         artist: name.find('.artist_name').text().trim()
       }
 
       if (name.find('.musuc_title').first().find('a')) {
-        song_data.link = name.find('.musuc_title').find('a').attr('href')
+        song_data.link = name.find('.musuc_title').find('a').attr('href')!
       }
 
       songs_data.push(song_data)
@@ -46,3 +57,5 @@ export async function billboard() {
 
   return songs_data
 }
+
+export { billboard }

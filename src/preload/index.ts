@@ -15,8 +15,9 @@ const api = {
 // just add to the DOM global.
 if (process.contextIsolated) {
   try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
+    contextBridge.exposeInMainWorld('electron', {
+      billboard: () => ipcRenderer.invoke('billboard')
+    })
   } catch (error) {
     console.error(error)
   }
