@@ -20,7 +20,7 @@ const headers = {
  * @param {string} name 歌名或别名
  * @param {number} [page=0] 页码，每页10个
  */
-async function fetch_songs(name, page = 0) {
+async function fetch_songs(name) {
   try {
     const url = "https://vocadb.net/api/songs"
     const params = {
