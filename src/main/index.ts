@@ -3,8 +3,9 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import { billboard } from './utils/websites/billboard'
+import * as billboard from './utils/websites/billboard'
 import * as vocadb from './utils/websites/vocadb'
+import * as entry from './utils/entry'
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -81,18 +82,21 @@ app.whenReady().then(() => {
   // 这里设置主进程要监听和处理的事件
   ipcMain.on('ping', () => console.log('pong'))
   ipcMain.handle('billboard', async (_event, _requestData) => {
-    const data = await billboard()
+    const data = await billboard.billboard()
     return data
   })
   ipcMain.handle('vocadb-search', async (_event, requestData) => {
     const data = await vocadb.search_songs(requestData.keyword)
     return data
   })
-  ipcMain.handle('vocadb-get', async (_event, requestData) => {
-    const data = await vocadb.get_song_info(requestData.id)
+  ipcMain.handle('vocadb-get', async (_event, id) => {
+    const data = await vocadb.get_song_info(id)
     return data
   })
-
+  ipcMain.handle('to-entry', async (_event, content) => {
+    const result = await entry.output(content)
+    return result
+  })
 
 
   myWindow = createWindow()

@@ -1,9 +1,9 @@
 {
-  "name": "electron-vite-app-1",
+  "name": "mpg-vs-tool",
   "version": "1.0.0",
-  "description": "An Electron application with Vue and TypeScript",
+  "description": "Make Moegirl-Pedia virtual singer song entries automatically.",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "SnowDream39",
   "homepage": "https://electron-vite.org",
   "scripts": {
     "format": "prettier --write .",

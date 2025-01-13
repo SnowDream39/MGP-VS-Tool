@@ -1,13 +1,40 @@
 <script setup>
-import { ref, onMounted, toRaw } from 'vue';
+import { ref, computed, onMounted, toRaw } from 'vue';
 
-const { vocadbSearch, vocadbGet } = window.electron;
+const { vocadbSearch, vocadbGet, toEntry } = window.electron;
 
 const songsData = ref([]);  // 将 songsData 声明为响应式数据
 const selectedSongData = ref({})
-const songStatus = ref({})
+const songStatus = computed(() => {
+  const status = {
+    hasOriginalLyric: false,
+    pvs: []
+  }
+
+  let lyrics = selectedSongData.value.lyricsFromParents;
+  for(var i=0; i<lyrics.length; i++){
+    if (lyrics[i].translationType == "Original") status.hasOriginalLyric = true;
+  }
+  let pvs = selectedSongData.value.pvs;
+  const services = ["NicoNicoDouga", "Youtube", "Bilibili"];
+  for (let service of services) {  // 使用 for...of 遍历 services 数组
+    for (let j = 0; j < pvs.length; j++) {  // 使用 j 遍历 pvs 数组
+      let pv = pvs[j];
+      if (pv.pvType == "Original" && pv.service == service) {
+        status.pvs.push(pv.pvId);
+        break;  // 找到匹配项后跳出内层循环
+      }
+    }
+  }
+
+  return status
+})
+
 let hasSelectedSong = ref(false);
 let selectedSongId;
+
+async function searchSongs() {
+}
 
 
 async function selectSong(id) {
@@ -20,29 +47,19 @@ async function selectSong(id) {
   selectedSongData.value = await vocadbGet(id)
   console.log(toRaw(selectedSongData.value))
 
-  let lyrics = selectedSongData.value.lyricsFromParents;
-  for(var i=0; i<lyrics.length; i++){
-    if (lyrics[i].translationType == "Original") songStatus.value.hasOriginalLyric = true;
-  }
-  let pvs = selectedSongData.value.pvs;
-  const services = ["NicoNicoDouga", "Youtube", "Bilibili"];
-  for (let service of services) {  // 使用 for...of 遍历 services 数组
-    for (let j = 0; j < pvs.length; j++) {  // 使用 j 遍历 pvs 数组
-      let pv = pvs[j];
-      if (pv.pvType == "Original" && pv.service == service) {
-        songStatus.value.pvs.push(pv.pvId);
-        break;  // 找到匹配项后跳出内层循环
-      }
-    }
-  }
-
-
   hasSelectedSong.value = true;
 }
 
+async function output() {
+  const result = await toEntry(toRaw(selectedSongData.value))
+  return result
+
+}
+
+
 onMounted(async () => {
   try {
-    const response = await vocadbSearch("脱法ロック", 1);  // 获取数据
+    const response = await vocadbSearch("ロウワー", 1);  // 获取数据
     console.log(response);  // 打印返回的数据
     songsData.value = response.items;  // 将数据赋值给响应式变量
   } catch (error) {
@@ -80,7 +97,10 @@ onMounted(async () => {
         <div>歌词： {{ songStatus.hasOriginalLyric ? "有" : "无" }}</div>
         <div>视频： {{ songStatus.pvs.join("、") }}</div>
       </div>
-      <img :src="selectedSongData.song.mainPicture.urlThumb" alt="image" />
+      <div style="display: flex; flex-direction: column; justify-content: center;">
+        <img :src="selectedSongData.song.mainPicture.urlThumb" alt="image" />
+        <el-button type="primary" @click="output" style="margin-top: 10px;">生成条目</el-button>
+      </div>
     </div>
     <h2>STAFF</h2>
     <el-table :data="selectedSongData.artists">

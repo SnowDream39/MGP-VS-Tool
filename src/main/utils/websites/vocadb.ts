@@ -80,6 +80,7 @@ export async function search_songs(name) {
 export async function get_song_info(id) {
   try {
     const data = await fetch_song(id)
+    delete data.alternateVersions, data.tags
     return data
   } catch (error) {
     console.log("Error:", error)

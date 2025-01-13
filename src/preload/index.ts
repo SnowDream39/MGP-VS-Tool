@@ -12,9 +12,8 @@ if (process.contextIsolated) {
         keyword: keyword,
         page: page
       }),
-      vocadbGet: (id) => ipcRenderer.invoke('vocadb-get' ,{
-        id: id
-      })
+      vocadbGet: (id) => ipcRenderer.invoke('vocadb-get', id),
+      toEntry: (content) => ipcRenderer.invoke('to-entry', content)
       // 以上是提供的接口
     })
   } catch (error) {
