@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, toRaw } from 'vue';
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const { vocadbSearch, vocadbGet, toEntry } = window.electron;
 
 const songsData = ref([]);  // 将 songsData 声明为响应式数据
@@ -33,7 +35,11 @@ const songStatus = computed(() => {
 let hasSelectedSong = ref(false);
 let selectedSongId;
 
-async function searchSongs() {
+async function searchSongs(keyword, page) {
+  const response = await vocadbSearch(keyword, page)
+  console.log(response)
+  songsData.value = response.items
+
 }
 
 
@@ -53,8 +59,9 @@ async function selectSong(id) {
 async function output() {
   const result = await toEntry(toRaw(selectedSongData.value))
   return result
-
 }
+
+
 
 
 onMounted(async () => {
@@ -71,15 +78,16 @@ onMounted(async () => {
 <template>
   <h1>vocadb搜索</h1>
   <span class="noRefererConfig" style="display: none;"></span>
-
+  <el-button type="primary" @click="router.push('/menu')">返回目录</el-button>
   <el-table :data="songsData">
     <el-table-column label="封面" width="200">
       <template #default="scope">
         <img :src="scope.row.mainPicture.urlThumb" alt="image" />
       </template>
     </el-table-column>
-    <el-table-column prop="name" label="歌名" class-name="title-column" />
-    <el-table-column prop="songType" label="类型" width="100" class-name="title-column" />
+    <el-table-column prop="name" label="歌名" />
+    <el-table-column prop="artistString" label="作者" />
+    <el-table-column prop="songType" label="类型" width="100" />
     <el-table-column label="操作" width="120">
       <template #default="scope">
         <el-button type="primary" @click="selectSong(songsData[scope.$index].id)">选择歌曲</el-button>
