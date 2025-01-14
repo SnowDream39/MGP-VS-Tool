@@ -6,3 +6,5 @@ build
 wikioutput
 .DS_Store
 *.log*
+*.png
+*.jpg
