@@ -20,6 +20,9 @@ importers:
       cheerio:
         specifier: ^1.0.0
         version: 1.0.0
+      ejs:
+        specifier: ^3.1.10
+        version: 3.1.10
       electron-updater:
         specifier: ^6.3.9
         version: 6.3.9

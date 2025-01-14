@@ -1,0 +1,54 @@
+{{标题替换|<%= title %>}}
+{{虚拟歌手歌曲荣誉题头|}}
+{{VOCALOID_Songbox
+|image = <%= title %>
+|图片信息 = illustration by <%= comma(illustrators) %>
+|颜色 =
+|演唱 = <%= comma(vocalists) %>
+|歌曲名称 =
+|P主 = <%= comma(producers) -%>
+<% for (const pv of pvs) { %>
+|<%= pv.service.abbr %>_id = <%= pv.id -%>
+<% }; %>
+|其他资料 = <% for (const i in pvs) { -%>
+<% const pv = pvs[i]; -%>
+<% if (pv.sameDay) { -%>
+同日<% -%>
+<% } else { -%>
+于<%= pv.upload.toFormat('yyyy年M月d日') -%>
+<% } -%>
+投稿至<%= pv.service.name %>，再生数为{{<%= pv.service.name %>Count|id=}} -%>
+<% if(i != pvs.length-1 ) { -%>
+<br/><% -%>
+<% } -%>
+<% } %>
+}}
+
+== 歌曲 ==
+{{VOCALOID Songbox Introduction
+<% for(const category in staff) { -%>
+|<%= category %> = <%= comma(staff[category]) -%>
+<% }; %>
+}}
+
+{{BilibiliVideo|id=<%= biliid ? biliid : '' %>}}
+
+
+== 歌词 ==
+*翻译：xxx<ref>翻译转载自xxx</ref>
+{{LyricsKai
+|lstyle=
+|rstyle=
+|original=
+<%= originalLyrics ? translatedLyrics : '' %>
+|translated=
+<%= translatedLyrics ? translatedLyrics : '' %>
+}}
+
+
+== 注释与外部链接 ==
+<references/>
+
+[[分类:日本音乐作品]]
+[[分类:使用VOCALOID的歌曲]]
+[[分类:初音未来歌曲]]

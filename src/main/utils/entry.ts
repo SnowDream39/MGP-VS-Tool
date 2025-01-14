@@ -1,9 +1,9 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import { dialog } from 'electron'
 import { DateTime } from 'luxon'
-
+import * as ejs from 'ejs'
+import entryTemplate from '../templates/main.ejs?asset'
 var songData: any = {}
-
 
 async function selectPath() {
   const { canceled, filePath } = await dialog.showSaveDialog({
@@ -50,7 +50,7 @@ function makeProducers() {
   return producers
 }
 
-async function makePvs() {
+function makePvs() {
   interface Pv {
     id: String;
     upload: DateTime;
@@ -70,80 +70,68 @@ async function makePvs() {
       }
     }
   }
-  return pvs
+  const serviceFormat = (service: string) => { return {
+    NicoNicoDouga: { abbr: 'nnd', name: 'niconico'},
+    Youtube: { abbr: 'yt', name: 'YouTube'},
+    Bilibili: { abbr: 'bb', name: 'bilibili'}
+    }[service]
+  }
+
+  interface formattedPv {
+    service: {
+      abbr: String;
+      name: String
+    };
+    id: String;
+    upload: DateTime;
+    view: Number;
+    sameDay: Boolean;
+  }
+
+  const formattedPvs: formattedPv[] = [];
+  for (const service in pvs) {
+    formattedPvs.push({
+      service: serviceFormat(service)!,
+      id: ( service == "Bilibili" ? "av" : "" ) + pvs[service].id,
+      upload: pvs[service].upload,
+      view: pvs[service].view,
+      sameDay: false
+    })
+  }
+
+  formattedPvs.sort((a, b) => a.upload - b.upload)
+  for (let i=1; i<formattedPvs.length; i++){
+    console.log(formattedPvs[i].upload.toMillis())
+    if (formattedPvs[i].upload.toMillis() == formattedPvs[i-1].upload.toMillis()){
+      formattedPvs[i].sameDay = true
+    }
+  }
+  console.log(formattedPvs)
+  return formattedPvs
 }
 
-function translated(category: string) {
-  return category
+function comma(items: string[]) {
+  return items.join('、')
 }
+
 
 async function makeWikitext(): Promise<string> {
-  const staff = await makeStaff()
   const data = {
+    staff: await makeStaff(),
     title: makeTitle(),
     names: makeNames(),
     producers: makeProducers(),
     vocalists: ["v flower"],
     illustrators: ["unknown"],
-    staff: staff,
-    pvs: await makePvs()
+    pvs: await makePvs(),
+    biliid: '',
+    originalLyrics: '',
+    translatedLyrics: '',
+    comma: comma
   }
 
-  let introduction = `
-{{标题替换|{{lj|${data.title}}}}}
-{{虚拟歌手歌曲荣誉题头|}}
-{{VOCALOID_Songbox
-|image = ${data.title}.jpg
-|图片信息 = illustration by ${data.illustrators.join("、")}
-|颜色 =
-|演唱 = [[${data.vocalists.join(']]、[[')}]]
-|歌曲名称 = ${data.names.join('<br/>')} <!-- 自己把多余的名字删掉，没有的名字补上 -->
-|P主 = [[${data.producers.join(']]、[[')}]]
-${ data.pvs.NicoNicoDouga ? "|nnd_id = " + data.pvs.NicoNicoDouga.id : ''}
-${ data.pvs.Youtube ? "|yt_id = " + data.pvs.Youtube.id : ''}
-${ data.pvs.Bilibili ? "|bb_id = av" + data.pvs.Bilibili.id : ''}
-|其他资料 =
-${ data.pvs.NicoNicoDouga ? '于'+data.pvs.NicoNicoDouga.upload.setZone('UTC+9').toFormat('yyyy年M月d日')+'投稿至niconico，再生数为{{NiconicoCount|id='+data.pvs.NicoNicoDouga.id+'}}' : '\b' }
-${ data.pvs.Youtube ? '于'+data.pvs.Youtube.upload.setZone('UTC+9').toFormat('yyyy年M月d日')+'投稿至YouTube，再生数为{{YoutubeCount|id='+data.pvs.Youtube.id+'}}' : '\b' }
-${ data.pvs.Bilibili ? '于'+data.pvs.Bilibili.upload.setZone('UTC+9').toFormat('yyyy年M月d日')+'投稿至bilibili，再生数为{{BilibiliCount|id=av'+data.pvs.Bilibili.id+'}}' : '\b' }
-}}
-
-《'''${data.title}'''》是{{lj|}}于XXXX年X月X日投稿至[[某站点]]的[[某引擎]]原创歌曲，由[[某歌姬]]演唱。收录于专辑'''某某某'''。
-
-`;
-  let song = `
-== 歌曲 ==
-
-{{VOCALOID Songbox Introduction
-${ (Object.entries(staff) as [string, string[]][]).map(([category, names]) => "|"+translated(category)+' = '+names.join('、')).join('\n') }
-}}
-
-{{BilibiliVideo|id=}}
-
-  `;
-  let lyrics = `
-
-== 歌词 ==
-*翻译：xxx<ref>翻译转载自xxx</ref>
-{{LyricsKai
-|lstyle=
-|rstyle=
-|original=
-|translated=
-}}
-
-`
-  let references = `
-
-
-== 注释与外部链接 ==
-<references/>
-
-[[分类:日本音乐作品]]
-[[分类:使用VOCALOID的歌曲]]
-[[分类:初音未来歌曲]]
-`
-  return introduction + song + lyrics + references
+  const template = fs.readFileSync(entryTemplate, { encoding: 'utf-8'})
+  return ejs.render(template, data)
 }
 
 

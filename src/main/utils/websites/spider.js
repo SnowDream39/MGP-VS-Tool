@@ -18,7 +18,7 @@ export const instance = axios.create({
         "x-client-os-type": "others",
         "x-frontend-version": "0"
     },
-    //"timeout": 5000
+    "timeout": 5000
 });
 
 export async function bilibili(url) {

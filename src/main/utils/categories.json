@@ -1,0 +1,15 @@
+{
+  "Animator": "PV",
+  "Arranger": "编曲",
+  "Composer": "作曲",
+  "Distributor": "发行",
+  "Illustrator": "曲绘",
+  "Instrumentalist": "演奏",
+  "Lyricist": "作词",
+  "Mastering": "母带",
+  "Mixer": "混音",
+  "Other": "其他",
+  "Publisher": "出版",
+  "Vocal data provider": "音源",
+  "Voice manipulator": "调教"
+}
