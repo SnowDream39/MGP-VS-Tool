@@ -1,10 +1,12 @@
 <script setup>
 import { ref, computed, onMounted, toRaw } from 'vue';
 import { useRouter } from 'vue-router'
+import { Search } from '@element-plus/icons-vue'
 
 const router = useRouter()
 const { vocadbGet, toEntry } = window.electron;
 
+const searchTitle = ref();
 const songsData = ref([]);  // 将 songsData 声明为响应式数据
 const selectedSongData = ref({})
 const songStatus = computed(() => {
@@ -60,24 +62,28 @@ async function output() {
   return result
 }
 
-
-
-
-onMounted(async () => {
+async function searchSong() {
   try {
-    const response = await vocadbGet("search-songs", { keyword: "ロウワー", page: 1});  // 获取数据
+    const response = await vocadbGet("search-songs", { keyword: toRaw(searchTitle.value), page: 1});  // 获取数据
     console.log(response);  // 打印返回的数据
     songsData.value = response.items;  // 将数据赋值给响应式变量
   } catch (error) {
     console.error('数据加载失败', error);
   }
-});
+}
 </script>
 
 <template>
   <h1>vocadb搜索</h1>
   <span class="noRefererConfig" style="display: none;"></span>
   <el-button type="primary" @click="router.push('/menu')">返回目录</el-button>
+  <div class="search-box">
+    <el-input v-model="searchTitle" placeholder="歌名" >
+      <template #append>
+        <el-button :icon="Search" @click="searchSong"/>
+      </template>
+    </el-input>
+  </div>
   <el-table :data="songsData">
     <el-table-column label="封面" width="200">
       <template #default="scope">
@@ -124,7 +130,9 @@ h1
   text-align: center;
 img
   height 100px
-
+.search-box
+  width 80%
+  margin 0 auto
 
 
 </style>

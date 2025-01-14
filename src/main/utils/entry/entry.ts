@@ -5,7 +5,7 @@ import * as ejs from 'ejs'
 import entryTemplateUrl from './templates/entry.ejs?asset'
 import categoryNames from './templates/categories.json'
 import { app } from 'electron'
-import { get_lyrics } from '../websites/vocadb'
+import { get_lyrics, get_vocalist_name } from '../websites/vocadb'
 /**
  * 来自 vocadb 的原始数据
  */
@@ -55,6 +55,11 @@ async function makeStaff() {
   for(const artist of songData.artists) {
     if (artist.categories === "Other"){
       roles = artist.effectiveRoles;
+    } else if (artist.categories === "Vocalist") {
+      roles = "Vocalist"
+      const artistDetail = await get_vocalist_name(artist.artist.id)
+      if("baseVoicebank" in artistDetail)
+        artist.name = artistDetail.baseVoicebank.name
     } else if (artist.categories.includes('Producer')) {
       producers.push(artist.name)
       if (artist.effectiveRoles === "Default") {
@@ -73,12 +78,11 @@ async function makeStaff() {
 }
 
 function makeFormattedStaff() {  // todo
-  const formattedStaff = staff;
+  const formattedStaff = { ...staff};
   for(const category in formattedStaff){
     formattedStaff[categoryNames[category]] = formattedStaff[category];
     delete formattedStaff[category]
   }
-  console.log(formattedStaff)
 
   return formattedStaff
 }
@@ -95,9 +99,11 @@ function makeSynthesizers() {
   for (const artist of songData.artists) {
     if( artist.categories.includes("Vocalist")) {
       let synthesizer = artist.artist.artistType === "Vocaloid" ? "VOCALOID" : artist.artist.artistType
-      synthesizers.push(synthesizer)
+      if (!["OtherVoiceSynthesizer"].includes(synthesizer))
+        synthesizers.push(synthesizer)
     }
   }
+  return synthesizers
 }
 
 function makeIllustrators() {        // to be improved
@@ -145,13 +151,15 @@ function makePvs() {
 
   const formattedPvs: formattedPv[] = [];
   for (const service in pvs) {
-    formattedPvs.push({
-      service: serviceFormat(service)!,
-      id: ( service == "Bilibili" ? "av" : "" ) + pvs[service].id,
-      upload: pvs[service].upload,
-      view: pvs[service].view,
-      sameDay: false
-    })
+    if (pvs[service]){
+      formattedPvs.push({
+        service: serviceFormat(service)!,
+        id: ( service == "Bilibili" ? "av" : "" ) + pvs[service].id,
+        upload: pvs[service].upload,
+        view: pvs[service].view,
+        sameDay: false
+      })
+    }
   }
 
   formattedPvs.sort((a, b) => a.upload - b.upload)
@@ -200,6 +208,9 @@ async function makeWikitext(): Promise<string> {
 
 export async function output (data) {
   songData = data
+  staff = {}
+  producers = []
+  synthesizers = []
   try {
     await makeStaff()
     const content = await makeWikitext()
