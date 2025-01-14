@@ -8,11 +8,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electron', {
       // 以下是提供的接口
       billboard: () => ipcRenderer.invoke('billboard'),
-      vocadbSearch: (keyword, page) => ipcRenderer.invoke('vocadb-search', {
-        keyword: keyword,
-        page: page
-      }),
-      vocadbGet: (id) => ipcRenderer.invoke('vocadb-get', id),
+      vocadbGet: (type, data) => ipcRenderer.invoke('vocadb', { type:type, data:data }),
       toEntry: (content) => ipcRenderer.invoke('to-entry', content)
       // 以上是提供的接口
     })

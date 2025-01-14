@@ -3,7 +3,7 @@ import { ref, computed, onMounted, toRaw } from 'vue';
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const { vocadbSearch, vocadbGet, toEntry } = window.electron;
+const { vocadbGet, toEntry } = window.electron;
 
 const songsData = ref([]);  // 将 songsData 声明为响应式数据
 const selectedSongData = ref({})
@@ -36,10 +36,9 @@ let hasSelectedSong = ref(false);
 let selectedSongId;
 
 async function searchSongs(keyword, page) {
-  const response = await vocadbSearch(keyword, page)
+  const response = await vocadbGet('search-songs', { keyword: keyword, page: page})
   console.log(response)
   songsData.value = response.items
-
 }
 
 
@@ -50,7 +49,7 @@ async function selectSong(id) {
   }
   selectedSongData.value = undefined
   selectedSongId = id
-  selectedSongData.value = await vocadbGet(id)
+  selectedSongData.value = await vocadbGet('song', {id: id})
   console.log(toRaw(selectedSongData.value))
 
   hasSelectedSong.value = true;
@@ -66,7 +65,7 @@ async function output() {
 
 onMounted(async () => {
   try {
-    const response = await vocadbSearch("ロウワー", 1);  // 获取数据
+    const response = await vocadbGet("search-songs", { keyword: "ロウワー", page: 1});  // 获取数据
     console.log(response);  // 打印返回的数据
     songsData.value = response.items;  // 将数据赋值给响应式变量
   } catch (error) {

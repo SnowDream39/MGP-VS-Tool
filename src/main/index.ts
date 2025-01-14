@@ -5,7 +5,7 @@ import icon from '../../resources/icon.png?asset'
 
 import * as billboard from './utils/websites/billboard'
 import * as vocadb from './utils/websites/vocadb'
-import * as entry from './utils/entry'
+import * as entry from './utils/entry/entry'
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -85,13 +85,16 @@ app.whenReady().then(() => {
     const data = await billboard.billboard()
     return data
   })
-  ipcMain.handle('vocadb-search', async (_event, requestData) => {
-    const data = await vocadb.search_songs(requestData.keyword)
-    return data
-  })
-  ipcMain.handle('vocadb-get', async (_event, id) => {
-    const data = await vocadb.get_song_info(id)
-    return data
+  ipcMain.handle('vocadb', async (_event, request) => {
+    if (request.type === "search-songs"){
+      return await vocadb.search_songs(request.data.keyword)
+    } else if (request.type === "song") {
+      return await vocadb.get_song_info(request.data.id)
+    } else if (request.type === "lyrics") {
+      return await vocadb.get_lyrics(request.data.id)
+    } else {
+      return { success: false, error: "No such request" }
+    }
   })
   ipcMain.handle('to-entry', async (_event, content) => {
     const result = await entry.output(content)

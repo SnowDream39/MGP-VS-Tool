@@ -2,13 +2,34 @@ import fs from 'node:fs'
 import { dialog } from 'electron'
 import { DateTime } from 'luxon'
 import * as ejs from 'ejs'
-import entryTemplate from '../templates/main.ejs?asset'
+import entryTemplateUrl from './templates/entry.ejs?asset'
+import categoryNames from './templates/categories.json'
+import { app } from 'electron'
+import { get_lyrics } from '../websites/vocadb'
+/**
+ * 来自 vocadb 的原始数据
+ */
 var songData: any = {}
+
+/**
+ * 键的名称与 vocadb 上的名称相同，首字母大写，单数形式
+ */
+var staff: any = {}
+var producers: string[] = []
+var synthesizers: string[] = []
+
+function addToGroup(obj: any, key: string, value: unknown) {
+  if (!obj[key]) {
+    obj[key] = [];
+  }
+  obj[key].push(value)
+}
+
 
 async function selectPath() {
   const { canceled, filePath } = await dialog.showSaveDialog({
     title: '保存文件',
-    defaultPath: 'output.wikitext'
+    defaultPath: app.isPackaged ? 'output.txt' : 'output.wikitext' // 一般用户还是用 txt 吧
   });
 
   if (canceled) {
@@ -29,25 +50,59 @@ function makeNames() {
 }
 
 async function makeStaff() {
-  const staff: any = {}
+  let roles: string
+
   for(const artist of songData.artists) {
-    for(const role of artist.effectiveRoles.split(', ')) {
-      if (role in staff){
-        staff[role].push(artist.name)
+    if (artist.categories === "Other"){
+      roles = artist.effectiveRoles;
+    } else if (artist.categories.includes('Producer')) {
+      producers.push(artist.name)
+      if (artist.effectiveRoles === "Default") {
+        roles = "Producer"  // 词·曲
       } else {
-        staff[role] = [artist.name]
+        roles = artist.effectiveRoles
       }
+    } else {
+      roles = artist.categories
+    }
+    for(const role of roles.split(', ')) {
+      addToGroup(staff, role, artist.name)
     }
   }
-  return staff
+
+}
+
+function makeFormattedStaff() {  // todo
+  const formattedStaff = staff;
+  for(const category in formattedStaff){
+    formattedStaff[categoryNames[category]] = formattedStaff[category];
+    delete formattedStaff[category]
+  }
+  console.log(formattedStaff)
+
+  return formattedStaff
 }
 
 function makeProducers() {
-  const producers: string[] = []
-  for (const artist of songData.artists)
-    if (artist.categories === "Producer")
-      producers.push(artist.name)
   return producers
+}
+
+function makeVocalists() {           // to be improved
+  return staff.Vocalist
+}
+
+function makeSynthesizers() {
+  for (const artist of songData.artists) {
+    if( artist.categories.includes("Vocalist")) {
+      let synthesizer = artist.artist.artistType === "Vocaloid" ? "VOCALOID" : artist.artist.artistType
+      synthesizers.push(synthesizer)
+    }
+  }
+}
+
+function makeIllustrators() {        // to be improved
+  const illustrators = "Illustrator" in staff ? staff.Illustrator : staff.Animator
+  return illustrators
 }
 
 function makePvs() {
@@ -101,36 +156,44 @@ function makePvs() {
 
   formattedPvs.sort((a, b) => a.upload - b.upload)
   for (let i=1; i<formattedPvs.length; i++){
-    console.log(formattedPvs[i].upload.toMillis())
     if (formattedPvs[i].upload.toMillis() == formattedPvs[i-1].upload.toMillis()){
       formattedPvs[i].sameDay = true
     }
   }
-  console.log(formattedPvs)
   return formattedPvs
 }
 
+async function makeLyrics(){
+  for(const lyricInfo of songData.lyricsFromParents){
+    if (lyricInfo.translationType === "Original") {
+      return (await get_lyrics(lyricInfo.id)).value;
+    }
+  }
+  return ''
+}
+
 function comma(items: string[]) {
-  return items.join('、')
+  return items ? items.join('、') : ''
 }
 
 
 async function makeWikitext(): Promise<string> {
   const data = {
-    staff: await makeStaff(),
+    staff: makeFormattedStaff(),
     title: makeTitle(),
     names: makeNames(),
     producers: makeProducers(),
-    vocalists: ["v flower"],
-    illustrators: ["unknown"],
+    vocalists: makeVocalists(),
+    synthesizers: makeSynthesizers(),
+    illustrators: makeIllustrators(),
     pvs: await makePvs(),
     biliid: '',
-    originalLyrics: '',
+    originalLyrics: await makeLyrics(),
     translatedLyrics: '',
     comma: comma
   }
 
-  const template = fs.readFileSync(entryTemplate, { encoding: 'utf-8'})
+  const template = fs.readFileSync(entryTemplateUrl, { encoding: 'utf-8'})
   return ejs.render(template, data)
 }
 
@@ -138,6 +201,7 @@ async function makeWikitext(): Promise<string> {
 export async function output (data) {
   songData = data
   try {
+    await makeStaff()
     const content = await makeWikitext()
     const result = await selectPath()
     if (result.success){

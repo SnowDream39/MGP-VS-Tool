@@ -3,7 +3,6 @@ dist
 out
 test
 build
+wikioutput
 .DS_Store
 *.log*
-*.png
-*.jpg

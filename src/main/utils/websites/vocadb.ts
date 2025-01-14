@@ -20,22 +20,8 @@ const headers = {
  * @param {string} name 歌名或别名
  * @param {number} [page=0] 页码，每页10个
  */
-async function fetch_songs(name) {
-  try {
-    const url = "https://vocadb.net/api/songs"
-    const params = {
-      start: 0,
-      getTotalCount: true,
-      maxResults: 10,
-      query: name,
-      fields: 'AdditionalNames,MainPicture', // 是请求什么，不是根据什么搜索
-      lang: 'Default',
-      nameMatchMode: 'Auto',
-      sort: 'RatingScore',
-      childTags: false,
-      artistParticipationStatus: 'Everything',
-      onlyWithPvs: false
-    }
+
+async function getData(url, params){
     const response = await axios.get(url, {
       params: params,
       headers: headers,
@@ -46,22 +32,40 @@ async function fetch_songs(name) {
     const decodedString = new TextDecoder().decode(decompressedData);
     const jsonData = JSON.parse(decodedString);
     return jsonData;
-  } catch (error) {
-    console.error('Error fetching or processing data:', error)
+}
+
+async function fetch_songs(name) {
+
+  const url = "https://vocadb.net/api/songs"
+  const params = {
+    start: 0,
+    getTotalCount: true,
+    maxResults: 10,
+    query: name,
+    fields: 'AdditionalNames,MainPicture', // 是请求什么，不是根据什么搜索
+    lang: 'Default',
+    nameMatchMode: 'Auto',
+    sort: 'RatingScore',
+    childTags: false,
+    artistParticipationStatus: 'Everything',
+    onlyWithPvs: false
   }
+  return getData(url, params)
 }
 
 async function fetch_song(id) {
   const url = `https://vocadb.net/api/songs/${id}/details`;
-  const response = await axios.get(url, {
-    headers: headers,
-    responseType: 'arraybuffer'
-  });
-  const compressedData = new Uint8Array(response.data);  // 从响应中获取压缩数据
-  const decompressedData = fzstd.decompress(compressedData);  // 使用 fzstd 解压缩
-  const decodedString = new TextDecoder().decode(decompressedData);
-  const jsonData = JSON.parse(decodedString);
-  return jsonData;
+  const params = {}
+  return getData(url, params)
+}
+
+async function fetch_lyrics(id) {
+  const url = `https://vocadb.net/api/songs/lyrics/${id}`
+  const params = {
+    v: 29
+  }
+  return getData(url, params)
+
 }
 
 export async function search_songs(name) {
@@ -85,5 +89,12 @@ export async function get_song_info(id) {
   } catch (error) {
     console.log("Error:", error)
   }
+}
 
+export async function get_lyrics(id) {
+  try{
+    return await fetch_lyrics(id)
+  } catch (error) {
+    console.log("Error:", error)
+  }
 }

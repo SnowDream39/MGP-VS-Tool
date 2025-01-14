@@ -1,5 +1,7 @@
-{{标题替换|<%= title %>}}
-{{虚拟歌手歌曲荣誉题头|}}
+<!-- 写错的部分先看着改 -->
+
+{{标题替换|{{lj|<%= title %>|}}}}
+{{虚拟歌手歌曲荣誉题头|<% for(const synthesizer of synthesizers) { -%><%= synthesizer %>|<% } -%>}}
 {{VOCALOID_Songbox
 |image = <%= title %>
 |图片信息 = illustration by <%= comma(illustrators) %>
@@ -17,17 +19,19 @@
 <% } else { -%>
 于<%= pv.upload.toFormat('yyyy年M月d日') -%>
 <% } -%>
-投稿至<%= pv.service.name %>，再生数为{{<%= pv.service.name %>Count|id=}} -%>
+投稿至<%= pv.service.name %>，再生数为{{<%= pv.service.name %>Count|id=<%= pv.id %>}} -%>
 <% if(i != pvs.length-1 ) { -%>
 <br/><% -%>
 <% } -%>
 <% } %>
 }}
 
+《'''<%= title %>'''》是<%= comma(producers) %>于<%= pvs[0].upload.toFormat('yyyy年M月d日') %>投稿至<%= pvs[0].service.name %>的日语原创歌曲，由<%= comma(vocalists) %>演唱。
+
 == 歌曲 ==
 {{VOCALOID Songbox Introduction
 <% for(const category in staff) { -%>
-|<%= category %> = <%= comma(staff[category]) -%>
+|<%= category %> = <%= comma(staff[category]) %>
 <% }; %>
 }}
 
@@ -40,7 +44,7 @@
 |lstyle=
 |rstyle=
 |original=
-<%= originalLyrics ? translatedLyrics : '' %>
+<%= originalLyrics ? originalLyrics : '' %>
 |translated=
 <%= translatedLyrics ? translatedLyrics : '' %>
 }}

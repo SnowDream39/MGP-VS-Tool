@@ -1,0 +1,740 @@
+{
+  "additionalNames": "Gekkou, Moonlight, 월광",
+  "albums": [
+    {
+      "artistString": "はるまきごはん, こんにちは谷田さん feat. 初音ミク, 鏡音リン",
+      "createDate": "2022-05-31T21:26:41.443",
+      "defaultName": "月光 [VOCALOID ver]",
+      "defaultNameLanguage": "Japanese",
+      "discType": "Single",
+      "id": 32539,
+      "name": "月光 [VOCALOID ver]",
+      "ratingAverage": 4.66,
+      "ratingCount": 3,
+      "releaseDate": { "day": 31, "isEmpty": false, "month": 5, "year": 2022 },
+      "status": "Finished",
+      "version": 4
+    },
+    {
+      "artistString": "はるまきごはん feat. various",
+      "createDate": "2024-05-06T14:59:50.553",
+      "defaultName": "おとぎの銀河団",
+      "defaultNameLanguage": "Japanese",
+      "discType": "Album",
+      "id": 41533,
+      "name": "おとぎの銀河団",
+      "ratingAverage": 4.63,
+      "ratingCount": 11,
+      "releaseDate": { "day": 29, "isEmpty": false, "month": 10, "year": 2024 },
+      "status": "Finished",
+      "version": 22
+    },
+    {
+      "artistString": "はるまきごはん feat. 初音ミク, 鏡音リン, v flower",
+      "createDate": "2024-10-28T17:36:32.09",
+      "defaultName": "おとぎの銀河団 (Digital Release)",
+      "defaultNameLanguage": "Japanese",
+      "discType": "Album",
+      "id": 43861,
+      "name": "おとぎの銀河団 (Digital Release)",
+      "ratingAverage": 4.75,
+      "ratingCount": 4,
+      "releaseDate": { "day": 29, "isEmpty": false, "month": 10, "year": 2024 },
+      "status": "Finished",
+      "version": 9
+    }
+  ],
+  "artists": [
+    {
+      "artist": {
+        "additionalNames": "○gaki",
+        "artistType": "Animator",
+        "deleted": false,
+        "id": 75498,
+        "name": "◯gaki",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 5
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Default",
+      "id": 1742129,
+      "isCustomName": false,
+      "isSupport": true,
+      "name": "◯gaki",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "ドミノ",
+        "artistType": "Animator",
+        "deleted": false,
+        "id": 105923,
+        "name": "DOMINO",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 5
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Default",
+      "id": 1742131,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "DOMINO",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Mana Inoue, Inoue Cosmo, イノウエコスモ, Inoue Mana",
+        "artistType": "Animator",
+        "deleted": false,
+        "id": 21424,
+        "name": "イノウエマナ",
+        "pictureMime": "image/png",
+        "status": "Finished",
+        "version": 11
+      },
+      "categories": "Animator, Illustrator",
+      "effectiveRoles": "Animator, Illustrator",
+      "id": 1742130,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "イノウエマナ",
+      "roles": "Animator, Illustrator"
+    },
+    {
+      "artist": {
+        "additionalNames": "iyowa",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 65229,
+        "name": "いよわ",
+        "pictureMime": "image/jpeg",
+        "status": "Approved",
+        "version": 20
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Animator",
+      "id": 1742125,
+      "isCustomName": false,
+      "isSupport": true,
+      "name": "いよわ",
+      "roles": "Animator"
+    },
+    {
+      "artist": {
+        "additionalNames": "Kitani Tatsuya, こんにちは谷田さん, Konnichiwa Tanita-san, Hello Tanita-san, Hello Tanitasan",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 23029,
+        "name": "キタニタツヤ",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 17
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "id": 1742132,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "キタニタツヤ",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Shannon",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 63531,
+        "name": "シャノン",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 15
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Animator",
+      "id": 1742127,
+      "isCustomName": false,
+      "isSupport": true,
+      "name": "シャノン",
+      "roles": "Animator"
+    },
+    {
+      "artist": {
+        "additionalNames": "Studio Gohan",
+        "artistType": "OtherGroup",
+        "deleted": false,
+        "id": 73892,
+        "name": "スタジオごはん",
+        "pictureMime": "image/png",
+        "status": "Finished",
+        "version": 8
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Animator",
+      "id": 1742123,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "スタジオごはん",
+      "roles": "Animator"
+    },
+    {
+      "artist": {
+        "additionalNames": "Harumaki Gohan, 春卷饭, Harumakigohan",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 28208,
+        "name": "はるまきごはん",
+        "pictureMime": "image/jpeg",
+        "status": "Approved",
+        "version": 41
+      },
+      "categories": "Producer, Animator, Illustrator",
+      "effectiveRoles": "Animator, Arranger, Composer, Illustrator, Lyricist",
+      "id": 1742124,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "はるまきごはん",
+      "roles": "Animator, Arranger, Composer, Illustrator, Lyricist"
+    },
+    {
+      "artist": {
+        "additionalNames": "Hatsune Miku, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 1,
+        "name": "初音ミク",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-08-31T00:00:00Z",
+        "status": "Locked",
+        "version": 39
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 1127157,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "初音ミク",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Daimonji no R, o_mozi_R",
+        "artistType": "Animator",
+        "deleted": false,
+        "id": 90840,
+        "name": "大文字のあーる",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 4
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Default",
+      "id": 1742128,
+      "isCustomName": false,
+      "isSupport": true,
+      "name": "大文字のあーる",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Kagamine Rin, 鏡音鈴, 카가미네 린, 镜音铃",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 14,
+        "name": "鏡音リン",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-12-27T00:00:00Z",
+        "status": "Locked",
+        "version": 32
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 1127158,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "鏡音リン",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Ozu",
+        "artistType": "Illustrator",
+        "deleted": false,
+        "id": 76204,
+        "name": "小津",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 6
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Animator",
+      "id": 1742126,
+      "isCustomName": false,
+      "isSupport": true,
+      "name": "小津",
+      "roles": "Animator"
+    }
+  ],
+  "artistString": "はるまきごはん, キタニタツヤ feat. 初音ミク, 鏡音リン",
+  "canEditPersonalDescription": false,
+  "canRemoveTagUsages": false,
+  "commentCount": 0,
+  "createDate": "2022-05-30T14:48:05.547",
+  "deleted": false,
+  "hits": 2827,
+  "latestComments": [],
+  "likeCount": 42,
+  "listCount": 57,
+  "lyricsFromParents": [
+    {
+      "cultureCodes": ["ja"],
+      "id": 106520,
+      "source": "",
+      "translationType": "Original",
+      "url": ""
+    },
+    {
+      "cultureCodes": [""],
+      "id": 114015,
+      "source": "Vocaloid Lyrics Wiki",
+      "translationType": "Romanized",
+      "url": "https://vocaloidlyrics.fandom.com/wiki/%E6%9C%88%E5%85%89_(Gekkou)/Harumaki_Gohan%C3%97Konnichiwa_Tanita-san"
+    },
+    {
+      "cultureCodes": ["pt"],
+      "id": 114016,
+      "source": "DinoKun",
+      "translationType": "Translation",
+      "url": "https://www.youtube.com/watch?v=ci1tWZD8SMI"
+    },
+    {
+      "cultureCodes": ["en"],
+      "id": 142571,
+      "source": "Vocaloid Lyrics Wiki",
+      "translationType": "Translation",
+      "url": "https://vocaloidlyrics.fandom.com/wiki/%E6%9C%88%E5%85%89_(Gekkou)/Harumaki_Gohan%C3%97Konnichiwa_Tanita-san"
+    }
+  ],
+  "maxMilliBpm": 109000,
+  "minMilliBpm": 109000,
+  "notes": {
+    "english": "\"Project SEKAI COLORFUL STAGE! feat. Hatsune Miku\"\n\"[Vivid BAD SQUAD](https://vocadb.net/Ar/86692)\" Newly-written Song\n\n---\nMovie : スタジオごはん\nDirector & Main Animator & BG art : はるまきごはん\nAnimation Assistant : ◯gaki、いよわ、小津、シャノン、大文字のあーる\n\n[Collage Part]\nDirector & Collage : イノウエマナ\nEditor : DOMINO\nPhotographer : 上野留加\nStylist : 大里梨絵\nMask Assistant : 篠倉彩音",
+    "original": "『プロジェクトセカイ カラフルステージ！ feat. 初音ミク』\n『[Vivid BAD SQUAD](https://vocadb.net/Ar/86692)』書き下ろし楽曲\n\n---\nMovie : スタジオごはん\nDirector & Main Animator & BG art : はるまきごはん\nAnimation Assistant : ◯gaki、いよわ、小津、シャノン、大文字のあーる\n\n[Collage Part]\nDirector & Collage : イノウエマナ\nEditor : DOMINO\nPhotographer : 上野留加\nStylist : 大里梨絵\nMask Assistant : 篠倉彩音"
+  },
+  "pools": [
+    { "featuredCategory": "Pools", "id": 30, "name": "(NND) More than 1 000 000 views" },
+    { "featuredCategory": "Pools", "id": 2665, "name": "(YT) More than 1 000 000 views" },
+    {
+      "featuredCategory": "Pools",
+      "id": 12694,
+      "name": "Game: Project SEKAI COLORFUL STAGE! feat. Hatsune Miku"
+    }
+  ],
+  "preferredLyrics": {
+    "cultureCodes": ["en"],
+    "id": 142571,
+    "source": "Vocaloid Lyrics Wiki",
+    "translationType": "Translation",
+    "url": "https://vocaloidlyrics.fandom.com/wiki/%E6%9C%88%E5%85%89_(Gekkou)/Harumaki_Gohan%C3%97Konnichiwa_Tanita-san"
+  },
+  "pvs": [
+    {
+      "author": "はるまきごはん",
+      "disabled": false,
+      "id": 625352,
+      "length": 234,
+      "name": "月光 / はるまきごはん×キタニタツヤ feat.初音ミク&鏡音リン",
+      "publishDate": "2022-05-30T00:00:00",
+      "pvId": "sm40545552",
+      "service": "NicoNicoDouga",
+      "pvType": "Original",
+      "thumbUrl": "https://nicovideo.cdn.nimg.jp/thumbnails/40545552/40545552.81235762",
+      "url": "http://www.nicovideo.jp/watch/sm40545552"
+    },
+    {
+      "author": "はるまきごはん / Harumaki Gohan Official",
+      "disabled": false,
+      "id": 625354,
+      "length": 235,
+      "name": "月光 / はるまきごはん×キタニタツヤ feat.初音ミク&鏡音リン MV",
+      "publishDate": "2022-05-30T00:00:00",
+      "pvId": "SaX0By61S3U",
+      "service": "Youtube",
+      "pvType": "Original",
+      "thumbUrl": "https://i.ytimg.com/vi/SaX0By61S3U/default.jpg",
+      "url": "https://youtu.be/SaX0By61S3U"
+    },
+    {
+      "author": "春卷饭harumakigohan",
+      "disabled": false,
+      "extendedMetadata": {
+        "json": "{\"Aid\":597248766,\"Bvid\":\"BV1yB4y1D7zB\",\"Cid\":737158984}"
+      },
+      "id": 696998,
+      "length": 234,
+      "name": "月光(中文字幕) / 春卷饭×キタニタツヤ feat.初音未来&鏡音鈴",
+      "publishDate": "2022-06-07T00:00:00",
+      "pvId": "597248766",
+      "service": "Bilibili",
+      "pvType": "Original",
+      "thumbUrl": "http://i1.hdslb.com/bfs/archive/dd5d44ff6b20c93c0dd156cec690adb2f18f2da8.jpg",
+      "url": "https://www.bilibili.com/video/av597248766"
+    }
+  ],
+  "releaseEvents": [
+    {
+      "category": "Other",
+      "date": "2022-01-01T00:00:00Z",
+      "endDate": "2022-11-27T00:00:00Z",
+      "id": 8433,
+      "name": "ニコニコ動画アワード 2022",
+      "seriesId": 813,
+      "seriesNumber": 2022,
+      "seriesSuffix": "",
+      "status": "Finished",
+      "urlSlug": "niconico-video-awards-2022",
+      "venueName": "",
+      "version": 11
+    }
+  ],
+  "song": {
+    "artistString": "はるまきごはん, キタニタツヤ feat. 初音ミク, 鏡音リン",
+    "createDate": "2022-05-30T14:48:05.547",
+    "defaultName": "月光",
+    "defaultNameLanguage": "Japanese",
+    "favoritedTimes": 41,
+    "id": 410288,
+    "lengthSeconds": 234,
+    "mainPicture": {
+      "urlOriginal": "https://i1.ytimg.com/vi/SaX0By61S3U/hqdefault.jpg",
+      "urlThumb": "https://nicovideo.cdn.nimg.jp/thumbnails/40545552/40545552.81235762"
+    },
+    "name": "月光",
+    "publishDate": "2022-05-30T00:00:00Z",
+    "pvServices": "NicoNicoDouga, Youtube, Bilibili",
+    "ratingScore": 207,
+    "songType": "Original",
+    "status": "Finished",
+    "version": 24
+  },
+  "songTypeTag": { "id": 6479, "name": "original song", "urlSlug": "original-song" },
+  "subjectsFromParents": [],
+  "suggestions": [
+    {
+      "additionalNames": "Lost One no Goukoku, Lost One's Weeping, The Lamentations of the Lost Ones, 로스트원의 호곡",
+      "artistString": "Neru feat. 鏡音リン Append (Power)",
+      "createDate": "2012-12-21T17:47:14",
+      "defaultName": "ロストワンの号哭",
+      "defaultNameLanguage": "Japanese",
+      "favoritedTimes": 320,
+      "id": 19094,
+      "lengthSeconds": 217,
+      "mainPicture": {
+        "urlOriginal": "https://i1.ytimg.com/vi/8oBV3jPTW4s/hqdefault.jpg",
+        "urlThumb": "https://nicovideo.cdn.nimg.jp/thumbnails/20244918/20244918"
+      },
+      "name": "ロストワンの号哭",
+      "publishDate": "2013-03-04T00:00:00Z",
+      "pvServices": "NicoNicoDouga, Youtube",
+      "ratingScore": 1532,
+      "songType": "Original",
+      "status": "Approved",
+      "version": 25
+    },
+    {
+      "additionalNames": "Suna no Wakusei, DUNE, Sand Planet",
+      "artistString": "ハチ feat. 初音ミク",
+      "createDate": "2017-05-26T05:06:50",
+      "defaultName": "砂の惑星",
+      "defaultNameLanguage": "Japanese",
+      "favoritedTimes": 183,
+      "id": 157860,
+      "lengthSeconds": 239,
+      "mainPicture": {
+        "urlOriginal": "https://i1.ytimg.com/vi/AS4q9yaWJkI/hqdefault.jpg",
+        "urlThumb": "https://nicovideo.cdn.nimg.jp/thumbnails/31606995/31606995"
+      },
+      "name": "砂の惑星",
+      "publishDate": "2017-07-20T00:00:00Z",
+      "pvServices": "NicoNicoDouga, Youtube, Bilibili",
+      "ratingScore": 965,
+      "songType": "Original",
+      "status": "Approved",
+      "version": 32
+    },
+    {
+      "additionalNames": "Unknown Mother-Goose, Unknown Mother Goose, 不为人知的鹅妈妈童谣",
+      "artistString": "wowaka, ヒトリエ feat. 初音ミク V4X (Dark)",
+      "createDate": "2017-08-04T17:06:30",
+      "defaultName": "アンノウン・マザーグース",
+      "defaultNameLanguage": "Japanese",
+      "favoritedTimes": 265,
+      "id": 164107,
+      "lengthSeconds": 285,
+      "mainPicture": {
+        "urlOriginal": "https://i1.ytimg.com/vi/P_CSdxSGfaA/hqdefault.jpg",
+        "urlThumb": "https://nicovideo.cdn.nimg.jp/thumbnails/31791630/31791630"
+      },
+      "name": "アンノウン・マザーグース",
+      "publishDate": "2017-08-22T00:00:00Z",
+      "pvServices": "NicoNicoDouga, Youtube, SoundCloud",
+      "ratingScore": 1163,
+      "songType": "Original",
+      "status": "Approved",
+      "version": 28
+    },
+    {
+      "additionalNames": "Tensei Ringo, Reincarnation Apple, 转生苹果, 轉生蘋果, ​轉生蘋果, Mansanas ng Reinkarnasyon, Pomme de réincarnation, Der Reinkarnationsapfel, תפוח היוולדות מחדש, Újjászületés Alma, Apel Reinkarnasi​, ​Mela della Reincarnazione, 전생사과, Renkarinasjon Eple, Maçã da Reencarnação, Яблоко перерождения, Manzana de la Reencarnación, แอปเปิ้ลแห่งการเกิดใหม่​, яблуко переродження",
+      "artistString": "ピノキオピー feat. 初音ミク V4X (Dark)",
+      "createDate": "2022-06-03T13:15:54.29",
+      "defaultName": "転生林檎",
+      "defaultNameLanguage": "Japanese",
+      "favoritedTimes": 81,
+      "id": 411304,
+      "lengthSeconds": 218,
+      "mainPicture": {
+        "urlOriginal": "https://i1.ytimg.com/vi/LYWP8HtgeLQ/hqdefault.jpg",
+        "urlThumb": "https://nicovideo.cdn.nimg.jp/thumbnails/40554570/40554570.11898029"
+      },
+      "name": "転生林檎",
+      "publishDate": "2022-06-03T00:00:00Z",
+      "pvServices": "NicoNicoDouga, Youtube, Bilibili",
+      "ratingScore": 395,
+      "songType": "Original",
+      "status": "Approved",
+      "version": 28
+    }
+  ],
+  "tags": [
+    {
+      "count": 6,
+      "tag": {
+        "additionalNames": "デュエット, duo, 二重唱, 2 singer, 2 vocalists",
+        "categoryName": "Vocalists",
+        "id": 3180,
+        "name": "duet",
+        "urlSlug": "duet"
+      }
+    },
+    {
+      "count": 6,
+      "tag": {
+        "additionalNames": "ProSeka, プロジェクトセカイ カラフルステージ！ feat. 初音ミク, Project SEKAI COLORFUL STAGE! feat. Hatsune Miku, HATSUNE MIKU: COLORFUL STAGE!, 世界計畫 繽紛舞台！feat. 初音未來, Colorful Stage, 프로젝트 세카이 컬러풀 스테이지! feat.하츠네 미쿠, 프로세카",
+        "categoryName": "Games",
+        "id": 7323,
+        "name": "プロセカ",
+        "urlSlug": "proseka"
+      }
+    },
+    {
+      "count": 5,
+      "tag": {
+        "additionalNames": "visual novel soundtrack",
+        "categoryName": "Sources",
+        "id": 456,
+        "name": "video game soundtrack",
+        "urlSlug": "video-game-soundtrack"
+      }
+    },
+    {
+      "count": 5,
+      "tag": {
+        "additionalNames": "2DアニメーションPV, 2D PV",
+        "categoryName": "Animation",
+        "id": 3287,
+        "name": "2D animated PV",
+        "urlSlug": "2d-animated-pv"
+      }
+    },
+    {
+      "count": 4,
+      "tag": {
+        "additionalNames": "実写, filmed PV, real world footage, photographic PV, real life video, real world video",
+        "categoryName": "Animation",
+        "id": 241,
+        "name": "live action",
+        "urlSlug": "live-action"
+      }
+    },
+    {
+      "count": 4,
+      "tag": {
+        "additionalNames": "",
+        "categoryName": "Themes",
+        "id": 2823,
+        "name": "abstract",
+        "urlSlug": "abstract"
+      }
+    },
+    {
+      "count": 4,
+      "tag": {
+        "additionalNames": "コラボキャンペーン, commercial tie-in",
+        "categoryName": "Sources",
+        "id": 6616,
+        "name": "commercial collaboration",
+        "urlSlug": "commercial-collaboration"
+      }
+    },
+    {
+      "count": 3,
+      "tag": {
+        "additionalNames": "",
+        "categoryName": "Subjective",
+        "id": 260,
+        "name": "melancholic",
+        "urlSlug": "melancholic"
+      }
+    },
+    {
+      "count": 3,
+      "tag": {
+        "additionalNames": "ポップ",
+        "categoryName": "Genres",
+        "id": 341,
+        "name": "pop",
+        "urlSlug": "pop"
+      }
+    },
+    {
+      "count": 3,
+      "tag": {
+        "additionalNames": "リズムアンドブルース, R&B, contemporary RnB, contemporary R&B, rhythm and blues, コンテンポラリーR&B",
+        "categoryName": "Genres",
+        "id": 375,
+        "name": "RnB",
+        "urlSlug": "rnb"
+      }
+    },
+    {
+      "count": 3,
+      "tag": {
+        "additionalNames": "切ない, sadness, 悲しみ",
+        "categoryName": "Subjective",
+        "id": 384,
+        "name": "sad",
+        "urlSlug": "sad"
+      }
+    },
+    {
+      "count": 3,
+      "tag": {
+        "additionalNames": "カラオケ配布, off vocal available, instrumental available, インストルメンタル配布, off-vocal available, インスト配布, inst配布, オフボ配布, オフボーカル配布",
+        "categoryName": "Distribution",
+        "id": 3113,
+        "name": "karaoke available",
+        "urlSlug": "karaoke-available"
+      }
+    },
+    {
+      "count": 3,
+      "tag": {
+        "additionalNames": "孤独感",
+        "categoryName": "Themes",
+        "id": 7223,
+        "name": "loneliness",
+        "urlSlug": "loneliness"
+      }
+    },
+    {
+      "count": 3,
+      "tag": {
+        "additionalNames": "コラボソング, リレー, relay, music collaboration, collaborative music, song collaboration, collaborative song, 合作",
+        "categoryName": "Sources",
+        "id": 8119,
+        "name": "musical collaboration",
+        "urlSlug": "musical-collaboration"
+      }
+    },
+    {
+      "count": 2,
+      "tag": {
+        "additionalNames": "月, satellite, 衛星, tsuki, the Moon",
+        "categoryName": "Themes",
+        "id": 4628,
+        "name": "moon",
+        "urlSlug": "moon"
+      }
+    },
+    {
+      "count": 2,
+      "tag": {
+        "additionalNames": "internal conflict",
+        "categoryName": "Themes",
+        "id": 6653,
+        "name": "inner conflict",
+        "urlSlug": "inner-conflict"
+      }
+    },
+    {
+      "count": 2,
+      "tag": {
+        "additionalNames": "コラージュ, collage art",
+        "categoryName": "Animation",
+        "id": 10367,
+        "name": "collage",
+        "urlSlug": "collage"
+      }
+    },
+    {
+      "count": 1,
+      "tag": {
+        "additionalNames": "ピアノ, Klavier, pianoforte",
+        "categoryName": "Instruments",
+        "id": 337,
+        "name": "piano",
+        "urlSlug": "piano"
+      }
+    },
+    {
+      "count": 1,
+      "tag": {
+        "additionalNames": "お洒落, fashionable, おしゃれ",
+        "categoryName": "Subjective",
+        "id": 3015,
+        "name": "stylish",
+        "urlSlug": "stylish"
+      }
+    }
+  ],
+  "userRating": "Nothing",
+  "webLinks": [
+    {
+      "category": "Official",
+      "description": "Piapro (Lyrics)",
+      "disabled": false,
+      "id": 113767,
+      "url": "https://piapro.jp/t/tv26"
+    },
+    {
+      "category": "Official",
+      "description": "Piapro (Off Vocal)",
+      "disabled": false,
+      "id": 113768,
+      "url": "https://piapro.jp/t/1mqJ"
+    },
+    {
+      "category": "Reference",
+      "description": "UtaiteDB (キタニタツヤ ver.)",
+      "disabled": false,
+      "id": 113798,
+      "url": "https://utaitedb.net/S/51564"
+    },
+    {
+      "category": "Reference",
+      "description": "Vivid BAD SQUAD ver.",
+      "disabled": false,
+      "id": 115561,
+      "url": "https://vocadb.net/S/407834"
+    },
+    {
+      "category": "Official",
+      "description": "キタニタツヤ ver.",
+      "disabled": false,
+      "id": 115560,
+      "url": "https://www.youtube.com/watch?v=8TghOw3v61k"
+    }
+  ],
+  "cultureCodes": ["ja"]
+}
