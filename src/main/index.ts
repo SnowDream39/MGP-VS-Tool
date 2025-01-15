@@ -30,9 +30,16 @@ function createWindow(): BrowserWindow {
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url)
-    return { action: 'deny' }
-  })
+    const url = details.url;
+
+    // 判断 URL 是否是可信域名
+    if (url.startsWith('https://trusted.com')) {
+      return { action: 'allow' }; // 允许打开窗口
+    } else {
+      shell.openExternal(url); // 在默认浏览器中打开非可信域名
+      return { action: 'deny' }; // 阻止在 Electron 内部打开
+    }
+  });
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
@@ -99,6 +106,9 @@ app.whenReady().then(() => {
   ipcMain.handle('to-entry', async (_event, content) => {
     const result = await entry.output(content)
     return result
+  })
+  ipcMain.on('open-external', async (_event, url) => {
+    await shell.openExternal(url);
   })
 
 

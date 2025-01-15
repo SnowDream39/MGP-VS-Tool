@@ -61,9 +61,7 @@ async function fetch_song(id) {
 
 async function fetch_lyrics(id) {
   const url = `https://vocadb.net/api/songs/lyrics/${id}`
-  const params = {
-    v: 29
-  }
+  const params = {}
   return getData(url, params)
 }
 
@@ -105,7 +103,7 @@ export async function get_lyrics(id) {
   }
 }
 
-export async function get_vocalist_name(id) {
+export async function get_vocalist(id) {
   try {
     return await fetch_vocalist(id)
   } catch (error) {

@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { Search } from '@element-plus/icons-vue'
 
 const router = useRouter()
-const { vocadbGet, toEntry } = window.electron;
+const { vocadbGet, toEntry, openExternal } = window.electron;
 
 const searchTitle = ref();
 const songsData = ref([]);  // 将 songsData 声明为响应式数据
@@ -37,13 +37,6 @@ const songStatus = computed(() => {
 let hasSelectedSong = ref(false);
 let selectedSongId;
 
-async function searchSongs(keyword, page) {
-  const response = await vocadbGet('search-songs', { keyword: keyword, page: page})
-  console.log(response)
-  songsData.value = response.items
-}
-
-
 async function selectSong(id) {
   songStatus.value = {
     hasOriginalLyric: false,
@@ -71,6 +64,11 @@ async function searchSong() {
     console.error('数据加载失败', error);
   }
 }
+
+function openVocadb() {
+  openExternal(`https://vocadb.net/S/${selectedSongData.value.song.id}`)
+}
+
 </script>
 
 <template>
@@ -78,7 +76,7 @@ async function searchSong() {
   <span class="noRefererConfig" style="display: none;"></span>
   <el-button type="primary" @click="router.push('/menu')">返回目录</el-button>
   <div class="search-box">
-    <el-input v-model="searchTitle" placeholder="歌名" >
+    <el-input v-model="searchTitle" placeholder="歌名" @keyup.enter="searchSong" >
       <template #append>
         <el-button :icon="Search" @click="searchSong"/>
       </template>
@@ -113,6 +111,7 @@ async function searchSong() {
       <div style="display: flex; flex-direction: column; justify-content: center;">
         <img :src="selectedSongData.song.mainPicture.urlThumb" alt="image" />
         <el-button type="primary" @click="output" style="margin-top: 10px;">生成条目</el-button>
+        <el-button type="primary" @click="openVocadb" style="margin-top: 10px;">打开网页</el-button>
       </div>
     </div>
     <h2>STAFF</h2>

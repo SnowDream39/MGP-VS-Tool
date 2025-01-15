@@ -23,13 +23,14 @@
 <% if(i != pvs.length-1 ) { -%>
 <br/><% -%>
 <% } -%>
-<% } %>}}
+<% } %>
+}}
 
-《'''<%- title %>'''》是<%- comma(producers) %>于<% for (const i in pvs) { -%>
-<% const pv = pvs[i]; -%>
-<%- pv.upload.toFormat('yyyy年M月d日') -%>
-投稿至<%- pv.service.name %><%- (i == pvs.length - 1) ? "" : "，" -%>
-<% } %>的日语原创歌曲，由<%- comma(vocalists) %>演唱。
+《'''<%- title %>'''》是<%- comma(producers) %>于<% for (const i in uploadGroups ) { -%>
+<% const uploadGroup = uploadGroups[i]; -%>
+<%- uploadGroup.upload.toFormat('yyyy年M月d日') -%>
+投稿至<%- comma(uploadGroup.services.map((s)=>s.name)) %><%- (i == uploadGroups.length - 1) ? "" : "，" -%>
+<% } %>的日语<% type %>歌曲，由<%- comma(vocalists) %>演唱。
 
 == 歌曲 ==
 {{VOCALOID Songbox Introduction
@@ -37,8 +38,7 @@
 |<%- category %> = <%- comma(staff[category]) %>
 <% }; %>}}
 
-{{BilibiliVideo|id=<%- biliid ? biliid : '' %>}}
-
+{{BilibiliVideo|id=<%- biliVideo %>}}
 
 == 歌词 ==
 *翻译：xxx<ref>翻译转载自xxx</ref>
@@ -50,7 +50,6 @@
 |translated=
 <%- translatedLyrics ? translatedLyrics : '' %>
 }}
-
 
 == 注释与外部链接 ==
 <references/>
