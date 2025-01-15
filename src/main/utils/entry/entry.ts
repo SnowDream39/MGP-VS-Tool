@@ -4,9 +4,13 @@ import { DateTime } from 'luxon'
 import * as ejs from 'ejs'
 import entryTemplateUrl from './templates/entry.ejs?asset'
 import categoryNames from './templates/categories.json'
+import synthesizerNames from './templates/synthesizers.json'
 import baseVoicebank from '../../../../resources/vocalists/baseVoicebanks.json'
 import { app } from 'electron'
 import { get_lyrics, get_vocalist } from '../websites/vocadb'
+import { join } from './wikitext'
+import Kuroshiro from "Kuroshiro"
+import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
 
 interface Service {
   abbr: String
@@ -117,18 +121,18 @@ async function makeStaff() {
       addToGroup(staff, role, artist.name)
     }
   }
+  staff.Vocalist = Array.from(new Set(staff.Vocalist))
   return staff
 }
 
-function makeFormattedStaff() {
+function makeDisplayStaff() {
   // todo
-  const formattedStaff = { ...staff }
-  for (const category in formattedStaff) {
-    formattedStaff[categoryNames[category]] = formattedStaff[category]
-    delete formattedStaff[category]
+  const displayStaff = { ...staff }
+  for (const category in displayStaff) {
+    displayStaff[categoryNames[category]] = displayStaff[category]
+    delete displayStaff[category]
   }
-
-  return formattedStaff
+  return displayStaff
 }
 
 function makeType() {
@@ -145,19 +149,23 @@ function makeProducers() {
 }
 
 function makeVocalists() {
-  // to be improved
-  return staff.Vocalist
+  let vocalists: string[] = []
+  for(const artist of songData.artists){
+    if(artist.categories === "Vocalist" && !artist.isSupport)
+      vocalists.push(artist.name)
+  }
+  return Array.from(new Set(vocalists))
 }
 
 function makeSynthesizers() {
   for (const artist of songData.artists) {
     if (artist.categories.includes('Vocalist')) {
-      let synthesizer =
-        artist.artist.artistType === 'Vocaloid' ? 'VOCALOID' : artist.artist.artistType
+      const type = artist.artist.artistType
+      const synthesizer = (type in synthesizerNames) ? synthesizerNames[type] : type
       if (!['OtherVoiceSynthesizer'].includes(synthesizer)) synthesizers.push(synthesizer)
     }
   }
-  return synthesizers
+  return Array.from(new Set(synthesizers))
 }
 
 function makeIllustrators() {
@@ -211,35 +219,44 @@ function makePvs() {
 function makeBiliVideo() {
   for(const pv of pvs) {
     if(pv.service.abbr === "bb"){
-      return 'av' + pv.id
+      return pv.id
     }
   }
   return ''
 }
 
+async function toPhotranse(lyrics: string) {
+  const kuroshiro = new Kuroshiro()
+  await kuroshiro.init(new KuromojiAnalyzer())
+  const rubyLyrics = await kuroshiro.convert(lyrics, {mode:"furigana", to:"hiragana"})
+  const photransLyrics = rubyLyrics.replace(
+    /<ruby>(.*?)<rp>\(<\/rp><rt>(.*?)<\/rt><rp>\)<\/rp><\/ruby>/g,
+    (_match, kanji, reading) => `{{Photrans|${kanji}|${reading}}}`
+  );
+  console.log(photransLyrics)
+  return photransLyrics
+}
 
 async function makeLyrics(type: 'Original' | 'Translation') {
   for (const lyricInfo of songData.lyricsFromParents) {
     if (type === 'Original') {
       if (lyricInfo.translationType === 'Original') {
-        return (await get_lyrics(lyricInfo.id)).value
+        let lyrics = await get_lyrics(lyricInfo.id)
+        lyrics.value = await toPhotranse(lyrics.value)
+        return lyrics
       }
     } else {
       if (lyricInfo.translationType === 'Translation' && lyricInfo.cultureCodes[0] == 'zh') {
-        return (await get_lyrics(lyricInfo.id)).value
+        return await get_lyrics(lyricInfo.id)
       }
     }
-    return ''
   }
-}
-
-function comma(items: string[]) {
-  return items ? items.join('、') : ''
+  return ''
 }
 
 async function makeWikitext(): Promise<string> {
   const data = {
-    staff: makeFormattedStaff(),
+    staff: makeDisplayStaff(),
     title: makeTitle(),
     allTitles: makeAllTitles(),
     type: makeType(),
@@ -252,7 +269,7 @@ async function makeWikitext(): Promise<string> {
     biliVideo: await makeBiliVideo(),
     originalLyrics: await makeLyrics('Original'),
     translatedLyrics: await makeLyrics('Translation'),
-    comma: comma
+    join: join
   }
 
   const template = fs.readFileSync(entryTemplateUrl, { encoding: 'utf-8' })

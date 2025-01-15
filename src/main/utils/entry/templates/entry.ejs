@@ -1,14 +1,12 @@
-<!-- 写错的部分先看着改 -->
-
 {{标题替换|{{lj|<%- title %>}}}}
 {{虚拟歌手歌曲荣誉题头|<% for(const synthesizer of synthesizers) { -%><%- synthesizer %>|<% } -%>}}
 {{VOCALOID_Songbox
-|image = <%- title %>.png
-|图片信息 = illustration by <% if(illustrators) { %><%- comma(illustrators) %><% } else { %><%- comma(producers) %><% } %>
+|image = <%- title %>.jpg
+|图片信息 = illustration by <% if(illustrators) { %><%- join(illustrators) %><% } else { %><%- join(producers) %><% } %>
 |颜色 =
-|演唱 = <%- comma(vocalists) %>
+|演唱 = <%- join(vocalists, ['inlink'] ) %>
 |歌曲名称 = {{lj|<%- title %>}}
-|P主 = <%- comma(producers) -%>
+|P主 = <%- join(producers, ['lj','inlink'] ) -%>
 <% for (const pv of pvs) { %>
 |<%- pv.service.abbr %>_id = <%- pv.id -%>
 <% }; %>
@@ -26,31 +24,38 @@
 <% } %>
 }}
 
-《'''<%- title %>'''》是<%- comma(producers) %>于<% for (const i in uploadGroups ) { -%>
+《'''<%- title %>'''》（）是<%- join(producers, ['lj','inlink']) %>于<% for (const i in uploadGroups ) { -%>
 <% const uploadGroup = uploadGroups[i]; -%>
 <%- uploadGroup.upload.toFormat('yyyy年M月d日') -%>
-投稿至<%- comma(uploadGroup.services.map((s)=>s.name)) %><%- (i == uploadGroups.length - 1) ? "" : "，" -%>
-<% } %>的日语<% type %>歌曲，由<%- comma(vocalists) %>演唱。
+投稿至<%- join(uploadGroup.services.map((s)=>s.name)) %><%- (i == uploadGroups.length - 1) ? "" : "，" -%>
+<% } %>的日语<%- type %>歌曲，由<%- join(vocalists, ['inlink']) %>演唱。
 
 == 歌曲 ==
 {{VOCALOID Songbox Introduction
 <% for(const category in staff) { -%>
-|<%- category %> = <%- comma(staff[category]) %>
+|<%- category %> = <%- join(staff[category]) %>
 <% }; %>}}
 
 {{BilibiliVideo|id=<%- biliVideo %>}}
 
 == 歌词 ==
-*翻译：xxx<ref>翻译转载自xxx</ref>
+*翻译：xxx<ref>翻译转载自<%- translatedLyrics ? `[${translatedLyrics.url} ${translatedLyrics.source}]` : 'xxx' %></ref>
 {{LyricsKai
 |lstyle=
 |rstyle=
 |original=
-<%- originalLyrics ? originalLyrics : '' %>
+<%- originalLyrics ? originalLyrics.value : '' %>
 |translated=
-<%- translatedLyrics ? translatedLyrics : '' %>
+<%- translatedLyrics ? translatedLyrics.value : '' %>
 }}
 
+
+<% for (const producer of producers) { -%>
+{{<%- producer %>}}
+<% } -%>
+<% for (const vocalist of vocalists) { -%>
+{{<%- vocalist %>}}
+<% } %>
 == 注释与外部链接 ==
 <references/>
 

@@ -30,6 +30,8 @@
     "element-plus": "^2.9.3",
     "fzstd": "^0.1.1",
     "html-entities": "^2.5.2",
+    "kuroshiro": "^1.2.0",
+    "kuroshiro-analyzer-kuromoji": "^1.1.0",
     "luxon": "^3.5.0",
     "vue-router": "^4.5.0"
   },

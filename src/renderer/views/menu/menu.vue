@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import logo from '../../../../resources/logo.png'
 
 // router钩子，返回路由器实例
 const router = useRouter()
@@ -8,16 +9,22 @@ const router = useRouter()
 const billboard = () => {
   router.push('/billboard')
 }
+
+onMounted(() => {
+  document.getElementById('logo').src = logo;
+})
+
+
 </script>
 
 <template>
   <div class="P-login">
-    <img src="./logo.png" class="logo" />
-    <div class="ipt-con">
-      <el-button type="primary" style="width: 100%" @click="billboard">billboard</el-button>
-    </div>
+    <img class="logo" id="logo" />
     <div class="ipt-con">
       <el-button type="primary" style="width: 100%" @click="router.push('/vocadb')">vocadb</el-button>
+    </div>
+    <div class="ipt-con">
+      <el-button type="primary" style="width: 100%" @click="billboard">billboard</el-button>
     </div>
   </div>
 </template>
