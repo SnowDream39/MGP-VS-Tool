@@ -5,9 +5,11 @@ import * as ejs from 'ejs'
 import entryTemplateUrl from './templates/entry.ejs?asset'
 import categoryNames from './templates/categories.json'
 import synthesizerNames from './templates/synthesizers.json'
-import baseVoicebank from '../../../../resources/vocalists/baseVoicebanks.json'
+import baseVoicebanks from '../../../../resources/vocalists/baseVoicebanks.json'
+import vocalistOriginalNames from '../../../../resources/vocalists/originalNames.json'
+import vocalistTranslatedNames from '../../../../resources/vocalists/translatedNames.json'
 import { app } from 'electron'
-import { get_lyrics, get_vocalist } from '../websites/vocadb'
+import { get_lyrics } from '../websites/vocadb'
 import { join } from './wikitext'
 import Kuroshiro from "Kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
@@ -89,11 +91,31 @@ function makeAllTitles() {
   return [songData.song.name] + songData.additionalNames.split(', ')
 }
 
-// todo
-function getVocalistName(artist) {
-  baseVoicebank
-  get_vocalist
-  return artist.name.split(" (")[0]
+
+function getVocalistName(artist, translated: boolean) {
+  let baseId: string
+  if (artist.id in baseVoicebanks){
+    baseId = baseVoicebanks[artist.id]
+  } else {
+    baseId = artist.id
+  }
+  console.log(baseId)
+  if (translated && baseId in vocalistTranslatedNames){
+    console.log("有翻译名称")
+    return vocalistTranslatedNames[baseId]
+  } else if (translated && !(baseId in vocalistTranslatedNames) && baseId in vocalistOriginalNames){
+    console.log("有原名")
+    return vocalistOriginalNames[baseId]
+  } else if (translated && !(baseId in vocalistOriginalNames)) {
+    console.log("没找到")
+    // 可以弹出一个提示
+    return artist.name
+  } else if (baseId in vocalistOriginalNames) {
+    return vocalistOriginalNames[baseId]
+  } else {
+    // 可以弹出一个提示
+    return artist.name
+  }
 }
 
 
@@ -106,7 +128,7 @@ async function makeStaff() {
       roles = artist.effectiveRoles
     } else if (artist.categories === 'Vocalist') {
       roles = 'Vocalist'
-      artist.name = getVocalistName(artist.artist)
+      artist.name = getVocalistName(artist.artist, true)
     } else if (artist.categories.includes('Producer')) {
       producers.push(artist.name)
       if (artist.effectiveRoles === 'Default') {
@@ -152,7 +174,7 @@ function makeVocalists() {
   let vocalists: string[] = []
   for(const artist of songData.artists){
     if(artist.categories === "Vocalist" && !artist.isSupport)
-      vocalists.push(artist.name)
+      vocalists.push(getVocalistName(artist.artist, true))
   }
   return Array.from(new Set(vocalists))
 }
@@ -233,7 +255,6 @@ async function toPhotranse(lyrics: string) {
     /<ruby>(.*?)<rp>\(<\/rp><rt>(.*?)<\/rt><rp>\)<\/rp><\/ruby>/g,
     (_match, kanji, reading) => `{{Photrans|${kanji}|${reading}}}`
   );
-  console.log(photransLyrics)
   return photransLyrics
 }
 

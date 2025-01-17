@@ -24,11 +24,15 @@
 <% } %>
 }}
 
-《'''<%- title %>'''》（）是<%- join(producers, ['lj','inlink']) %>于<% for (const i in uploadGroups ) { -%>
+{{Cquote|{{lj|投稿文原文}}
+----
+投稿文译文|<%- join(producers, ['lj','inlink']) %>投稿文}}
+
+《'''<%- join(title, ['lj']) %>'''》（）是<%- join(producers, ['lj','inlink']) %>于<% for (const i in uploadGroups ) { -%>
 <% const uploadGroup = uploadGroups[i]; -%>
 <%- uploadGroup.upload.toFormat('yyyy年M月d日') -%>
-投稿至<%- join(uploadGroup.services.map((s)=>s.name)) %><%- (i == uploadGroups.length - 1) ? "" : "，" -%>
-<% } %>的日语<%- type %>歌曲，由<%- join(vocalists, ['inlink']) %>演唱。
+投稿至<%- join(uploadGroup.services.map((s)=>s.name), ['inlink']) %><%- (i == uploadGroups.length - 1) ? "" : "，" -%>
+<% } %>的<%- join(languages) %><%- type %>歌曲，由<%- join(vocalists, ['inlink']) %>演唱。
 
 == 歌曲 ==
 {{VOCALOID Songbox Introduction
