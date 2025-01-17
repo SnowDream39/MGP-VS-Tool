@@ -99,15 +99,11 @@ function getVocalistName(artist, translated: boolean) {
   } else {
     baseId = artist.id
   }
-  console.log(baseId)
   if (translated && baseId in vocalistTranslatedNames){
-    console.log("有翻译名称")
     return vocalistTranslatedNames[baseId]
   } else if (translated && !(baseId in vocalistTranslatedNames) && baseId in vocalistOriginalNames){
-    console.log("有原名")
     return vocalistOriginalNames[baseId]
   } else if (translated && !(baseId in vocalistOriginalNames)) {
-    console.log("没找到")
     // 可以弹出一个提示
     return artist.name
   } else if (baseId in vocalistOriginalNames) {

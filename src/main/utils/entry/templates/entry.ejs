@@ -32,7 +32,7 @@
 <% const uploadGroup = uploadGroups[i]; -%>
 <%- uploadGroup.upload.toFormat('yyyy年M月d日') -%>
 投稿至<%- join(uploadGroup.services.map((s)=>s.name), ['inlink']) %><%- (i == uploadGroups.length - 1) ? "" : "，" -%>
-<% } %>的<%- join(languages) %><%- type %>歌曲，由<%- join(vocalists, ['inlink']) %>演唱。
+<% } %>的日语<%- type %>歌曲，由<%- join(vocalists, ['inlink']) %>演唱。
 
 == 歌曲 ==
 {{VOCALOID Songbox Introduction
