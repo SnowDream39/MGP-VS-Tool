@@ -36,8 +36,10 @@
 
 == 歌曲 ==
 {{VOCALOID Songbox Introduction
+|lbgcolor = black
+|color = white
 <% for(const category in staff) { -%>
-|<%- category %> = <%- join(staff[category]) %>
+|<%- category %> = <%- join(staff[category], ['lj']) %>
 <% }; %>}}
 
 {{BilibiliVideo|id=<%- biliVideo %>}}

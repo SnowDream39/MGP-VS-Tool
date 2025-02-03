@@ -13,6 +13,7 @@ import { get_lyrics } from '../websites/vocadb'
 import { join } from './wikitext'
 import Kuroshiro from "Kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
+import { av2bv, bv2av } from './avbv'
 
 interface Service {
   abbr: String
@@ -208,7 +209,7 @@ function makePvs() {
       && !pvs.map((pv)=>pv.service.abbr).includes(serviceFormat(pv.service).abbr)) {
       pvs.push({
         service: serviceFormat(pv.service),
-        id: (pv.service == 'Bilibili' ? 'av' : '') + pv.pvId,
+        id: pv.service == 'Bilibili' ? av2bv(pv.pvId) : pv.pvId,
         upload: DateTime.fromISO(pv.publishDate),
         view: 0,
         sameDay: false,
